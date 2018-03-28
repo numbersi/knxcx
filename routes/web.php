@@ -15,6 +15,7 @@ Route::get('/', function () {
     $r = encrypt(123);
     var_dump($r);
 });
+Route::any('/wechat','WechatController@wechat');
 
 Route::group([
     'prefix'=>'api' ,
@@ -22,7 +23,6 @@ Route::group([
     $route->post('xcxLogin','AuthController@xcxLogin');
     $route::post('/addPostImages','PostController@addPostImages');
     $route::get('/cateAll','CategoryController@index');
-    $route::any('/wechat','WechatController@wechat');
     $route->group([    'middleware'=>'refresh.token' ], function ($route) {
         $route::post('/checkToken','AuthController@checkToken');
         $route::post('/getMeData','AuthController@getMeData');
