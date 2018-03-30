@@ -25,7 +25,7 @@ class xcxServer
 
             'log' => [
                 'level' => 'debug',
-                'file' => __DIR__.'/wechat.log',
+                'file' => storage_path().'/xcx.log',
             ],
         ];
 

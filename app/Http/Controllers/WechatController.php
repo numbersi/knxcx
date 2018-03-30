@@ -29,7 +29,7 @@ class WechatController extends Controller
             'aes_key' => env('WECHAT_AES_KEY', ''),
             'log' => [
                 'level' => 'debug',
-                'file' => __DIR__ . '/wechat.log',
+                'file' => storage_path(). '/wechat.log',
             ],
         ];
 
