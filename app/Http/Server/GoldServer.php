@@ -14,11 +14,16 @@ use App\User;
 class GoldServer
 {
 
-    public static function addGold($user,$gold)
+    public static function addGold($id,$gold)
     {
-        $user->gold +=$gold;
-        $user->save();
+        $user = User::find($id);
+        if ($user) {
+            $user->gold +=$gold;
+            $user->save();
+            return $user->gold;
 
-        return $user->gold;
+        }
+        return 0;
+
     }
 }

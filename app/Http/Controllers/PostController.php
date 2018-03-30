@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PostCollection;
 use App\Http\Resources\PostResource;
+use App\Http\Server\GoldServer;
 use App\Image;
 use App\Post;
 use Illuminate\Http\Request;
@@ -121,8 +122,9 @@ class PostController extends Controller
                 $user->gold = $residue_gold;
                 $post->buyers()->attach($user);
                 if ($user->save()) {
+                    GoldServer::addGold($post->user_id, $post->gold*0.7);
                     $messages = '获取成功';
-                    return response()->json(['msg'=>$messages,'links'=>$post->links]);
+                    return response()->json(['msg'=>$messages,'links'=>$post->links,'status'=>true]);
                 }
 
             } else {

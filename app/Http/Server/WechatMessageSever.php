@@ -17,23 +17,54 @@ use Illuminate\Support\Facades\Storage;
 class WechatMessageSever
 {
 
-    public static function index($message,$openid){
+    public static function  index($message,$openid){
+
 
         $message = trim($message);
         $openid = trim($openid);
-        if ($message==='妖妖灵') {
-                return 'https://pan.baidu.com/s/1eRV88AQ 密码：l55z';
-        }
-        $beginStr=  mb_substr($message , 0 , 2);
-        $userOpenid= UserOpenid::where('wx_openid', $openid)->first();
-        if (Cache::get('sign')){
-            sleep(2);
 
-        }
 
-        Cache::put('sign', '1',1);
+               $beginStr=  mb_substr($message , 0 , 2);
+
+          $user  =  User::where('wxOpenid', $openid)->first();
         switch ($beginStr) {
 
+            case '签到':
+                if (is_null($user)) {
+                    return '你尚未绑定,请绑定小程序中的邀请码， 格式：绑定:邀请码';
+                }else{
+                    return UserSignServer::sign($user);
+                }
+                break;
+            case '绑定':
+
+                if (is_null($user)) {
+                    $xcxOpenid =  mb_substr($message , 3 , strlen($message)-3);
+                    $xcxUser = User::where('xcxOpenid', $xcxOpenid)->first();
+                    if (!is_null($xcxUser)) {
+                        $xcxUser->wxOpenid = $openid ;
+                        if (  $xcxUser->save()) {
+                            $addGold = 60;
+                            $gold = GoldServer::addGold($xcxUser->id, $addGold);
+                            if ($xcxUser->promoter_id) {
+                                GoldServer::addGold($xcxUser->promoter_id,$addGold/2);
+                            }
+                            return '绑定成功,奖励'.$addGold.'金币,现在共计:'.$gold.'个金币';
+                        }
+                    }
+
+                }else{
+                    return '此微信已经绑定了.为了减少服务器的压力,请勿重复操作,重复操作的将会扣分';
+                }
+                break;
+            default:
+                return '你输入的指令不存在,现有指令[签到] [绑定:内容][留言:内容]';
+                break;
+
+
+        }
+
+/*        switch ($beginStr) {
             case '签到' :
                 if (is_null($userOpenid)) {
                     return '你尚未绑定,请绑定小程序中的邀请码， 格式：绑定:邀请码';
@@ -74,6 +105,6 @@ class WechatMessageSever
             default:
                 return '你输入的指令不存在,现有指令[签到][绑定:内容][留言:内容]';
                 break;
-        }
+        }*/
         }
 }
