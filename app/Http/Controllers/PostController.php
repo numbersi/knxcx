@@ -17,14 +17,14 @@ class PostController extends Controller
     public function getPostsByCateId(Request $request)
     {
 
-        $posts = Post::where(['cate_id'=> $request->cate_id,'status'=>1])->with(['user', 'images'])->get();
+        $posts = Post::where(['cate_id' => $request->cate_id, 'status' => 1])->with(['user', 'images'])->get();
         $user = Auth::user();
         if (!$user) {
             $posts->map(function ($item, $key) {
                 return $item->links = null;
             });
         } else {
-              $posts->map(function ($post) use ($user){
+            $posts->map(function ($post) use ($user) {
                 if ($user->id != $post->user->id) {
                     if (!$post->buyers->contains($user)) {
                         return $post->links = null;
@@ -34,11 +34,12 @@ class PostController extends Controller
         }
         return new PostCollection(new PostResource($posts));
     }
+
     public function addPost(Request $request)
     {
-       $user =  Auth::user();
+        $user = Auth::user();
 
-        if ($user ) {
+        if ($user) {
             $posts = $user->post;
 
             if ($posts) {
@@ -46,8 +47,8 @@ class PostController extends Controller
                     return $post->status == 0;
                 });
                 if ($newPosts->count() > 3) {
-                    $msg =  '你有还有'.$newPosts->count() . '条投稿没通过，请等待';
-                    return response()->json(['msg'=>$msg],444);
+                    $msg = '你有还有' . $newPosts->count() . '条投稿没通过，请等待';
+                    return response()->json(['msg' => $msg], 444);
                 }
             }
 
@@ -85,6 +86,7 @@ class PostController extends Controller
             $disk->delete($r);
         }
     }
+
     public function delPost(Post $post)
     {
         if ($post->delete()) {
@@ -94,13 +96,15 @@ class PostController extends Controller
 
     public function delPostImages($post_id)
     {
-        $imges = Image::where('post_id',$post_id)->get();
+        $imges = Image::where('post_id', $post_id)->get();
         $imges->map(function ($v) {
             $this->removeQiniuImage($v->name);
-            $v -> delete();
+            $v->delete();
         });
     }
-    public function removeQiniuImage($name){
+
+    public function removeQiniuImage($name)
+    {
         $disk = Storage::disk('qiniu');
         $disk->delete($name);
     }
@@ -114,25 +118,43 @@ class PostController extends Controller
         if ($post) {
 
             if ($post->buyers->contains($user)) {
-                return response()->json(['msg'=>'获取成功','links'=>$post->links,'status'=>true]);
+                return response()->json(['msg' => '获取成功', 'links' => $post->links, 'status' => true]);
             }
-            $residue_gold =   $user->gold - $post->gold;
-            if ($residue_gold >=0) {
+            $residue_gold = $user->gold - $post->gold;
+            if ($residue_gold >= 0) {
 
                 $user->gold = $residue_gold;
                 $post->buyers()->attach($user);
                 if ($user->save()) {
-                    GoldServer::addGold($post->user_id, $post->gold*0.7);
+                    GoldServer::addGold($post->user_id, $post->gold * 0.7);
                     $messages = '获取成功';
-                    return response()->json(['msg'=>$messages,'links'=>$post->links,'status'=>true]);
+                    return response()->json(['msg' => $messages, 'links' => $post->links, 'status' => true]);
                 }
 
             } else {
-                $messages = '金币不够, 你只有' . $user->gold  . '积分！  相差' . -$residue_gold;
-                return response()->json(['msg'=>$messages,'status'=>false]);
+                $messages = '金币不够, 你只有' . $user->gold . '积分！  相差' . -$residue_gold;
+                return response()->json(['msg' => $messages, 'status' => false]);
 
             }
         }
+
+
+    }
+
+    function PostNotice()
+    {
+        return [
+            'bar1' => [
+                'text' => '',
+                'scrollable' => '',
+                'delay' => 1000
+            ],
+            'bar2' => [
+                'text' => '足协杯战线连续第2年上演广州德比战',
+                'color' => '#fff',
+                'backgroundColor' => '#000'
+            ]
+        ];
 
 
     }

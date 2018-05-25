@@ -22,6 +22,7 @@ Route::group([
 ], function ($route) {
     $route->post('xcxLogin','AuthController@xcxLogin');
     $route::post('/addPostImages','PostController@addPostImages');
+    $route::post('/PostNotice','PostController@PostNotice');
     $route::get('/cateAll','CategoryController@index');
     $route->group([    'middleware'=>'refresh.token' ], function ($route) {
         $route::post('/checkToken','AuthController@checkToken');

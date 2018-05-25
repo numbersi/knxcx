@@ -102,11 +102,10 @@ class AuthController extends Controller
         $inviteCode = $request->inviteCode;
         $user = Auth::user();
         if ($user->promoter_id) {
-
             return response()->json(['data' => ['msg' => '你已经有了邀请人']]);
         }
-        if ($inviteCode) {
 
+        if ($inviteCode) {
             $user2 = User::where('inviteCode', $inviteCode)->first();
             if (!$user2) {
                 return response()->json(['data' => ['msg' => '无效的邀请码']]);
@@ -114,7 +113,7 @@ class AuthController extends Controller
             $user->promoter_id = $user2->id;
             GoldServer::addGold($user2->id, 60);
             if ($user->save()) {
-                return response()->json(['data' => ['msg' => '你的邀请人的微信昵称: ' . $user2->name]]);
+                return response()->json(['data' => ['msg' => '邀请人-: ' . $user2->name]]);
             }
         }
     }
