@@ -16,15 +16,12 @@ class GoldServer
 
     public static function addGold($id,$gold)
     {
-        return 123;
         $user = User::find($id);
         if ($user) {
-            $user->gold +=$gold;
+            $user->gold += $gold;
             $user->save();
             return $user->gold;
-
         }
         return 0;
-
     }
 }

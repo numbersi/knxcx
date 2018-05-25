@@ -112,7 +112,7 @@ class AuthController extends Controller
                 return response()->json(['data' => ['msg' => '无效的邀请码']]);
             }
             $user->promoter_id = $user2->id;
-            GoldServer::addGold($user2, 60);
+            GoldServer::addGold($user2->id, 60);
             if ($user->save()) {
                 return response()->json(['data' => ['msg' => '你的邀请人的微信昵称: ' . $user2->name]]);
             }
