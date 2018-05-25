@@ -141,7 +141,7 @@ class PostController extends Controller
 
     }
 
-    function PostNotice()
+public function PostNotice()
     {
         return [
             'bar1' => [
