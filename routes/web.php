@@ -26,6 +26,7 @@ Route::group([
     $route->group([    'middleware'=>'refresh.token' ], function ($route) {
         $route::post('/checkToken','AuthController@checkToken');
         $route::post('/getMeData','AuthController@getMeData');
+        $route::post('/shareG','ShareController@shareG');
         $route::post('/inputInviteCode','AuthController@inputInviteCode');
         $route::post('/getPostsByCateId','PostController@getPostsByCateId');
         $route::get('/delPost/{post}','PostController@delPost');
@@ -33,3 +34,4 @@ Route::group([
         $route::post('/getLinks','PostController@getLinks');
     });
 });
+

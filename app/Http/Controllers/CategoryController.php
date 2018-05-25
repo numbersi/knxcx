@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Resources\CategoryCollection;
-use App\Http\Resources\CategoryResource;
+use App\Post;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -16,8 +16,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $cateAll = Category::with('posts')->all();
+        $cateAll = Category::get();
+           $cateAll = $cateAll->each(function ($item) {
+            return $item->posts = Post::where(['cate_id'=> $item->id])->get()->count();
+
+        });
        return new  CategoryCollection($cateAll);
+
+//        $collection = $collection->each(function ($item, $key) {
+//            //
+//        });
     }
 
     /**
