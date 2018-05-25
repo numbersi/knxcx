@@ -141,18 +141,18 @@ class PostController extends Controller
 
     }
 
-public function PostNotice()
+    function PostNotice()
     {
         return [
             'bar1' => [
-                'text' => '',
-                'scrollable' => '',
+                'text' => '仅供学习交流使用，请在安装后24小时内删除请勿用于商业及非法用途！产生一切非法后果与作者无关！如不接受，请勿下载',
+                'scrollable' =>true,
                 'delay' => 1000
             ],
             'bar2' => [
-                'text' => '足协杯战线连续第2年上演广州德比战',
-                'color' => '#fff',
-                'backgroundColor' => '#000'
+                'text' => '本站所有资源均是网上搜集或网友上传提供,本站内容仅供观摩学习交流之用，将不对任何资源负法律责任，如有侵权请及时联系 ',
+                'scrollable' =>true,
+                'delay' => 1000
             ]
         ];
 
