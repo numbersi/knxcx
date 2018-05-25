@@ -16,7 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       return new  CategoryCollection(Category::all()->with('posts'));
+        $cateAll = Category::with('posts')->all();
+       return new  CategoryCollection($cateAll);
     }
 
     /**
