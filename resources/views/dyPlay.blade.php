@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$data->name }}--{{$data->vod_remarks}}}</title>
+    <title>{{$data->name }}--{{$data->vod_remarks}}</title>
     <link href="https://cdn.bootcss.com/dplayer/1.22.2/DPlayer.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/hls.js/0.9.1/hls.js"></script>
     <script src="https://cdn.bootcss.com/dplayer/1.22.2/DPlayer.min.js"></script>
@@ -40,7 +40,6 @@
         screenshot: true,
         hotkey: true,
         preload: 'auto',
-//        logo: 'logo.png',
         volume: 0.7,
         mutex: true,
         video: {
