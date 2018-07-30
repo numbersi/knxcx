@@ -18,7 +18,7 @@
 </head>
 <body>
     <div>
-        <p>关注公众号,看更多视频
+        <p>关注公众号,看更多视频 \#长按识别二维码#\
         </p>
         <img id = 'erweima' src="/img/飞鸟二维码.jpg" alt="飞鸟TV">
     </div>
