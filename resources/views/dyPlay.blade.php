@@ -5,24 +5,38 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$data->name }}--{{$data->vod_remarks}}</title>
+    <title>{{$data->name }}--{{$data->vod_remarks}}视频随时失效.速速来看吧</title>
     <link href="https://cdn.bootcss.com/dplayer/1.22.2/DPlayer.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/hls.js/0.9.1/hls.js"></script>
     <script src="https://cdn.bootcss.com/dplayer/1.22.2/DPlayer.min.js"></script>
     <style>
+        .header{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+        }
         #erweima{
             width: 60%;
             height: 60%;
+            align-self: center;
+            align-content: center;
+        }
+        p {
+            font-size: small;
+
         }
     </style>
 </head>
-<body>
-    <div>
-        <p>关注公众号,看更多视频 \#长按识别二维码#\
+<body >
+    <div class="header">
+        <p style="color:red">关注公众号,看更多视频 \#长按识别二维码#\
         </p>
         <img id = 'erweima' src="/img/飞鸟二维码.jpg" alt="飞鸟TV">
     </div>
-    <p>##请不要相信视频内部滚动广告,如若受骗,概不受骗.##</p>
+    <p style="color:green">##资源采集互联网,视频随时失效.快快分享给小伙伴们吧##</p>
+    <p style="color:green">##如果不能播放,请在公众号上留言.##</p>
+    <p style="color:mediumvioletred">##请不要相信视频内部滚动广告,如若受骗,概不受骗.##</p>
 <div id="dplayer"></div>
     <div>
 
