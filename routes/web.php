@@ -31,7 +31,7 @@ Route::group([
 ], function ($route) {
     $route->get('/','MoviesController@dy');
 
-    $route->get('/{dy}','MoviesController@dy');
+    $route->get('/{dy}','MoviesController@dyInfo');
 });
 
 
