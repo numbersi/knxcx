@@ -9,6 +9,16 @@
     <link href="https://cdn.bootcss.com/dplayer/1.22.2/DPlayer.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/hls.js/0.9.1/hls.js"></script>
     <script src="https://cdn.bootcss.com/dplayer/1.22.2/DPlayer.min.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?8f6175d0c293c8af59ef57d18c1a3f84";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
     <style>
         .header{
             display: flex;
