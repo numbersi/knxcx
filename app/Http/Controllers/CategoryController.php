@@ -18,7 +18,9 @@ class CategoryController extends Controller
     {
         $cateAll = Category::get();
            $cateAll = $cateAll->each(function ($item) {
-            return $item->posts = Post::where(['cate_id'=> $item->id])->get()->count();
+               $item->iconImage = $item->icon;
+
+               return $item->posts = Post::where(['cate_id'=> $item->id])->get()->count();
 
         });
        return new  CategoryCollection($cateAll);

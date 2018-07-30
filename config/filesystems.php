@@ -70,6 +70,19 @@ return [
             'bucket' => env('QINIU_BUCKET', 'kuainiao'),
             'domain' => env('QINIU_DOMAIN', 'kuainiaobucket.numbersi.cn'), // or host: https://xxxx.clouddn.com
         ],
+        'qiniu2' => [
+            'driver'  => 'qiniu',
+            'domains' => [
+                'default'   => 'http://kuainiaobucket.numbersi.cn/', //你的七牛域名
+                'https'     => '',         //你的HTTPS域名
+                'custom'    => 'http://kuainiaobucket.numbersi.cn/',                //你的自定义域名
+            ],
+            'access_key'=> 'ck9JDFIY4Ezi5rHOZWCvvZXR0z5SqUnqOiiTWBCm',  //AccessKey
+            'secret_key'=> 'YV5oClB3mu0nSxIk12XsX6Qa7Ry47SfnzfGmIQKF',  //SecretKey
+            'bucket'    => 'kuainiao',  //Bucket名字
+            'notify_url'=> '',  //持久化处理回调地址
+            'url'       => 'http://kuainiaobucket.numbersi.cn/',  // 填写文件访问根url
+        ],
 
     ],
 

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CategoryCollection extends ResourceCollection
+class MoviesListCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,8 +14,11 @@ class CategoryCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return[
-            'data' => $this->collection,
-        ];
+        return $this->collection; //->map(function ($item) {
+//          $item->video_info = json_decode($item->video_info,true);
+//            return $item;
+//        });
     }
+
+
 }

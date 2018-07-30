@@ -12,11 +12,30 @@
 */
 
 Route::get('/', function () {
-    $r = encrypt(123);
-    var_dump($r);
+    return 'Numbersi';
 });
-Route::any('/wechat','WechatController@wechat');
+Route::group([
+    'prefix'=>'movie' ,
+], function ($route) {
+    $route->get('/','MoviesController@index');
+    $route->get('/movieList','MoviesController@lists');
+    $route->get('/getMovieLinks/{movies}','MoviesController@getMovieLinks');
 
+
+    //电影
+    $route->get('/dy','MoviesController@dy');
+});
+
+Route::group([
+    'prefix'=>'dy' ,
+], function ($route) {
+    $route->get('/','MoviesController@dy');
+
+    $route->get('/{dy}','MoviesController@dy');
+});
+
+
+Route::any('/wechat','WechatController@wechat');
 Route::group([
     'prefix'=>'api' ,
 ], function ($route) {
@@ -34,5 +53,11 @@ Route::group([
         $route::post('/addPost','PostController@addPost');
         $route::post('/getLinks','PostController@getLinks');
     });
+});
+Route::post('/images', function ( Illuminate\Http\Request $request) {
+    $disk = Storage::disk('qiniu2');
+    $image = $request->image;
+    $r = $disk->put('postImage', $image);
+    return $r;
 });
 
